@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+
+<?import java.lang.String?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="content-pane">
+
+    <center>
+        <VBox spacing="30" alignment="TOP_LEFT">
+            <padding>
+                <Insets top="40" right="100" bottom="40" left="100"/>
+            </padding>
+
+            <GridPane hgap="20" vgap="15"
+                      styleClass="card form-container">
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+
+                <Label text="Voornaam" GridPane.rowIndex="0"/>
+                <TextField fx:id="voornaamField" GridPane.rowIndex="1"/>
+
+                <Label text="Naam" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <TextField fx:id="naamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Email" GridPane.rowIndex="2"/>
+                <TextField fx:id="emailField" GridPane.rowIndex="3"/>
+
+                <Label fx:id="telefoonLabel" text="Telefoon (optioneel)" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <TextField fx:id="telefoonField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Straat" GridPane.rowIndex="4"/>
+                <TextField fx:id="straatField" GridPane.rowIndex="5"/>
+
+                <Label text="Nr" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <TextField fx:id="nummerField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                <Label text="Postbus (optioneel)" GridPane.rowIndex="6"/>
+                <TextField fx:id="postbusField" GridPane.rowIndex="7"/>
+
+                <Label text="Stad" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <TextField fx:id="stadField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+                <Label text="Postcode" GridPane.rowIndex="8"/>
+                <TextField fx:id="postcodeField" GridPane.rowIndex="9"/>
+
+                <Label text="Geboortedatum" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+                <DatePicker fx:id="geboorteDatumPicker"
+                            GridPane.rowIndex="9"
+                            GridPane.columnIndex="1"/>
+
+                <Label text="Rol" GridPane.rowIndex="10"/>
+                <ComboBox fx:id="rolComboBox"
+                          GridPane.rowIndex="11">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="ADMINISTRATOR"/>
+                            <String fx:value="MANAGER"/>
+                            <String fx:value="VERANTWOORDELIJKE"/>
+                            <String fx:value="WERKNEMER"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+
+                <HBox spacing="20"
+                      GridPane.rowIndex="11"
+                      GridPane.columnIndex="1">
+                    <RadioButton text="Actief" fx:id="actiefRadio">
+                        <toggleGroup>
+                            <ToggleGroup fx:id="statusGroup"/>
+                        </toggleGroup>
+                    </RadioButton>
+                    <RadioButton text="Inactief"
+                                 fx:id="inactiefRadio"
+                                 toggleGroup="$statusGroup"/>
+                </HBox>
+
+                <Button text="Toevoegen"
+                        styleClass="primary-button"
+                        GridPane.rowIndex="12"
+                        GridPane.columnIndex="1"
+                        GridPane.halignment="RIGHT"
+                        onAction="#handleToevoegen"/>
+
+            </GridPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>

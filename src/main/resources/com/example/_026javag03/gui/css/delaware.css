@@ -1,0 +1,140 @@
+/* ================= ROOT ================= */
+
+.root {
+    -fx-background-color: white;
+    -fx-font-family: "Segoe UI", "Helvetica", "Arial";
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    -fx-padding: 20;
+    -fx-background-color: white;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    -fx-background-color: #F5F5F5;
+    -fx-padding: 30;
+    -fx-spacing: 15;
+    -fx-pref-width: 250;
+}
+
+/* Sidebar knoppen altijd zelfde breedte */
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 10 12 10;
+    -fx-background-radius: 8;
+    -fx-max-width: Infinity;
+}
+
+.menu-button:hover {
+    -fx-background-color: #E30613;
+    -fx-text-fill: white;
+}
+
+.menu-button-active {
+    -fx-background-color: #E30613;
+    -fx-text-fill: white;
+}
+
+/* ================= TITELS ================= */
+
+.title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* ================= SCREEN BORDER ================= */
+
+.content-pane {
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 1 1 0 1;
+}
+
+/* Form card binnen scherm */
+.form-container {
+    -fx-border-color: #E30613;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+/* ================= SEARCH FIELD ================= */
+
+.search-field {
+    -fx-pref-width: 200;
+    -fx-max-width: 200;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    -fx-background-color: #F9F9F9;
+    -fx-background-radius: 15;
+    -fx-padding: 40;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 12, 0.2, 0, 4);
+}
+
+/* ================= TEXTFIELDS ================= */
+
+.text-field, .date-picker, .combo-box {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #E0E0E0;
+    -fx-padding: 8;
+}
+
+/* ================= BUTTON ================= */
+
+.primary-button {
+    -fx-background-color: #E30613;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 10 20 10 20;
+}
+
+.primary-button:hover {
+    -fx-background-color: #B8000F;
+}
+
+/* ================= TABLE ================= */
+
+.table-view {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #E30613;
+    -fx-border-width: 2;
+    -fx-padding: 5;
+}
+
+/* Hover effect */
+.table-row-cell:hover {
+    -fx-background-color: #FCE4E6;
+}
+
+/* Geselecteerde rij */
+.table-row-cell:selected {
+    -fx-background-color: #E30613;
+}
+
+/* Tekst in geselecteerde rij */
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* Als geselecteerde rij ook hover heeft → blijft rood */
+.table-row-cell:selected:hover {
+    -fx-background-color: #E30613;
+}
+
+/* Als focus wegvalt → blijft tekst wit */
+.table-row-cell:selected:focused .table-cell {
+    -fx-text-fill: white;
+}
