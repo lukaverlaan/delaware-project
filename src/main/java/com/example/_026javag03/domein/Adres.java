@@ -10,17 +10,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "adressen")
+@Embeddable
 @Getter
 @Setter
 public class Adres {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    private int id;
-
     private String straat;
     private String huisnr;
     private String postbus;

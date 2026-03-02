@@ -16,22 +16,31 @@
 
 
             <!-- Zoekveld in aparte HBox zodat het niet uitrekt -->
-            <HBox alignment="CENTER_LEFT">
+            <HBox spacing="20" alignment="CENTER_LEFT">
+
                 <TextField fx:id="txtFilter"
                            promptText="Zoek gebruiker..."
                            styleClass="search-field"/>
+
+                <CheckBox fx:id="actiefCheckBox" text="Actief" selected="true"/>
+                <CheckBox fx:id="inactiefCheckBox" text="Inactief" selected="true"/>
+
+                <ComboBox fx:id="rolFilterComboBox"
+                          promptText="Filter op rol"
+                          prefWidth="160"/>
+
             </HBox>
 
             <TableView fx:id="tblvGebruikers"
                        VBox.vgrow="ALWAYS">
 
                 <columns>
+                    <TableColumn fx:id="tblcRol" text="Rol"/>
+                    <TableColumn fx:id="tblcStatus" text="Status"/>
                     <TableColumn fx:id="tblcVoornaam" text="Voornaam"/>
                     <TableColumn fx:id="tblcNaam" text="Naam"/>
                     <TableColumn fx:id="tblcEmail" text="Email"/>
                     <TableColumn fx:id="tblcGsm" text="Telefoon"/>
-                    <TableColumn fx:id="tblcRol" text="Rol"/>
-                    <TableColumn fx:id="tblcStatus" text="Status"/>
                 </columns>
 
                 <columnResizePolicy>

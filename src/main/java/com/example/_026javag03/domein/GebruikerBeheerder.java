@@ -28,33 +28,37 @@ public class GebruikerBeheerder {
 
     public void updateGebruiker(Gebruiker gebruiker) {
 
-        controleerUniekeEmail(gebruiker);
-
         try {
             gebruikerRepo.startTransaction();
+
+            controleerUniekeEmail(gebruiker);
+
             gebruikerRepo.update(gebruiker);
+
             gebruikerRepo.commitTransaction();
+
         } catch (Exception e) {
+
             gebruikerRepo.rollbackTransaction();
-            throw new IllegalArgumentException("E-mailadres bestaat al.");
+
+            throw new IllegalArgumentException("Er bestaat al een gebruiker met dit e-mailadres.");
         }
     }
 
     private void controleerUniekeEmail(Gebruiker gebruiker) {
 
-        try {
-            Gebruiker bestaande =
-                    gebruikerRepo.getGebruikerByEmail(gebruiker.getEmail());
+        Gebruiker bestaande =
+                gebruikerRepo.getGebruikerByEmail(gebruiker.getEmail());
 
-            if (!bestaande.getId().equals(gebruiker.getId())) {
-                throw new IllegalArgumentException(
-                        "Er bestaat al een gebruiker met dit e-mailadres.");
-            }
+        if (bestaande == null) {
+            return;
+        }
 
-        } catch (IllegalArgumentException ex) {
-            if (!ex.getMessage().contains("Geen gebruiker gevonden")) {
-                throw ex;
-            }
+        if (gebruiker.getId() == null ||
+                !bestaande.getId().equals(gebruiker.getId())) {
+
+            throw new IllegalArgumentException(
+                    "Er bestaat al een gebruiker met dit e-mailadres.");
         }
     }
 

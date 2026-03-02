@@ -38,6 +38,7 @@ public class ObservableGebruikerBeheer {
     }
 
     public void changeFilter(String filterValue) {
+
         filteredGebruikers.setPredicate(g -> {
 
             if (filterValue == null || filterValue.isBlank())
@@ -45,9 +46,18 @@ public class ObservableGebruikerBeheer {
 
             String lower = filterValue.toLowerCase();
 
-            return g.getNaam().toLowerCase().contains(lower)
-                    || g.getVoornaam().toLowerCase().contains(lower)
-                    || g.getEmail().toLowerCase().contains(lower);
+            return contains(g.getNaam(), lower)
+                    || contains(g.getVoornaam(), lower)
+                    || contains(g.getEmail(), lower)
+                    || contains(g.getGsm(), lower)
+                    || contains(g.getRol(), lower)
+                    || contains(g.getStatus(), lower)
+                    || contains(g.getPersoneelsnummer(), lower)
+                    || contains(g.getDto().stad(), lower);
         });
+    }
+
+    private boolean contains(String value, String filter) {
+        return value != null && value.toLowerCase().contains(filter);
     }
 }

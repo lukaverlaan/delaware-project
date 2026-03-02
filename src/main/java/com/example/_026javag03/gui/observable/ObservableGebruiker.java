@@ -44,4 +44,8 @@ public class ObservableGebruiker {
     public String getNaam() { return naam.get(); }
     public String getVoornaam() { return voornaam.get(); }
     public String getEmail() { return email.get(); }
+    public String getGsm() { return gsm.get(); }
+    public String getRol() { return rol.get(); }
+    public String getStatus() { return status.get(); }
+    public String getPersoneelsnummer() { return personeelsnummer.get(); }
 }

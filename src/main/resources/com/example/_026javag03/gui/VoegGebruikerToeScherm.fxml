@@ -69,6 +69,10 @@
                     </items>
                 </ComboBox>
 
+                <Label text="Status"
+                       GridPane.rowIndex="10"
+                       GridPane.columnIndex="1"/>
+
                 <HBox spacing="20"
                       GridPane.rowIndex="11"
                       GridPane.columnIndex="1">

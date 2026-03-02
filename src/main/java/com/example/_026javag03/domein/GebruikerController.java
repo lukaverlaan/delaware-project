@@ -2,6 +2,7 @@ package com.example._026javag03.domein;
 
 import com.example._026javag03.dto.GebruikerDTO;
 import com.example._026javag03.exceptions.AdresException;
+import com.example._026javag03.exceptions.ValidatieException;
 import com.example._026javag03.repository.GebruikerDaoJpa;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class GebruikerController {
             gebruiker.setPersoneelsnummer(pnr);
             beheerder.updateGebruiker(gebruiker);
 
-        } catch (AdresException | IllegalArgumentException e) {
+        } catch (AdresException | ValidatieException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }
@@ -82,7 +83,7 @@ public class GebruikerController {
 
             beheerder.updateGebruiker(bestaande);
 
-        } catch (AdresException | IllegalArgumentException e) {
+        } catch (AdresException | ValidatieException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
     }

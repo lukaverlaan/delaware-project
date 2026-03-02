@@ -46,6 +46,7 @@ public class GebruikerDetailController {
 
         personeelsnummerField.setText(dto.personeelsnummer());
         personeelsnummerField.setEditable(false);
+        personeelsnummerField.setDisable(true);
 
         naamField.setText(dto.naam());
         voornaamField.setText(dto.voornaam());

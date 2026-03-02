@@ -1,6 +1,7 @@
 package com.example._026javag03.domein;
 
 import com.example._026javag03.exceptions.AdresException;
+import com.example._026javag03.exceptions.ValidatieException;
 import com.example._026javag03.util.Rol;
 import com.example._026javag03.util.Status;
 import com.example._026javag03.util.ValidatieUtil;
@@ -9,6 +10,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "gebruikers")
@@ -29,7 +32,7 @@ public class Gebruiker {
     private String naam;
     private String voornaam;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Embedded
     private Adres adres;
 
     @Column(unique = true) // 🔥 NIEUW
@@ -96,46 +99,28 @@ public class Gebruiker {
         }
 
         public Gebruiker build() {
-            controleerVerplichteVelden();
-            controleerLeeftijd();
-            controleerEmail();
-            controleerGsmVerplichting();
-            controleerGsmFormaat();
+
+            Map<String, String> fouten = new HashMap<>();
+
+            if (isLeeg(naam))
+                fouten.put("naam", "Naam is verplicht.");
+
+            if (isLeeg(voornaam))
+                fouten.put("voornaam", "Voornaam is verplicht.");
+
+            if (geboortedatum == null)
+                fouten.put("geboortedatum", "Geboortedatum is verplicht.");
+
+            if (!ValidatieUtil.isGeldigEmail(email))
+                fouten.put("email", "Ongeldig e-mailadres.");
+
+            if (rol == Rol.WERKNEMER && isLeeg(gsm))
+                fouten.put("gsm", "Gsm is verplicht voor werknemers.");
+
+            if (!fouten.isEmpty())
+                throw new ValidatieException(fouten);
+
             return new Gebruiker(this);
-        }
-
-        private void controleerVerplichteVelden() {
-            if (isLeeg(naam) || isLeeg(voornaam) ||
-                    geboortedatum == null || isLeeg(email) ||
-                    rol == null || status == null) {
-                throw new IllegalArgumentException("Niet alle verplichte velden zijn ingevuld.");
-            }
-        }
-
-        private void controleerLeeftijd() {
-            if (Period.between(geboortedatum, LocalDate.now()).getYears() < 18) {
-                throw new IllegalArgumentException("Gebruiker moet minstens 18 jaar oud zijn.");
-            }
-        }
-
-        private void controleerGsmVerplichting() {
-            if (rol == Rol.WERKNEMER && isLeeg(gsm)) {
-                throw new IllegalArgumentException("Gsm is verplicht voor werknemers.");
-            }
-        }
-
-        private void controleerEmail() {
-            if (!ValidatieUtil.isGeldigEmail(email)) {
-                throw new IllegalArgumentException("Ongeldig e-mailadres.");
-            }
-        }
-
-        private void controleerGsmFormaat() {
-            if (gsm != null && !gsm.isBlank()) {
-                if (!ValidatieUtil.isGeldigGsm(gsm)) {
-                    throw new IllegalArgumentException("Ongeldig gsm-nummer.");
-                }
-            }
         }
 
         private boolean isLeeg(String s) {

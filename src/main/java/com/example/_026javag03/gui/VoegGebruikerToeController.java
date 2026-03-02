@@ -94,9 +94,9 @@ public class VoegGebruikerToeController {
         if (!checkNotBlank(voornaamField, "Voornaam is verplicht.")) return false;
         if (!checkNotBlank(naamField, "Naam is verplicht.")) return false;
         if (!checkEmail()) return false;
-        if (!checkPostcode()) return false;
         if (!checkNotBlank(straatField, "Straat is verplicht.")) return false;
         if (!checkNotBlank(nummerField, "Huisnummer is verplicht.")) return false;
+        if (!checkPostcode()) return false;
         if (!checkNotBlank(stadField, "Stad is verplicht.")) return false;
 
         if (geboorteDatumPicker.getValue() == null) {

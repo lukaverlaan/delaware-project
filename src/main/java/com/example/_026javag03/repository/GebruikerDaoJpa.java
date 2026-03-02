@@ -21,12 +21,7 @@ public class GebruikerDaoJpa extends GenericDaoJpa<Gebruiker> implements Gebruik
                     .getSingleResult();
 
         } catch (NoResultException ex) {
-            throw new IllegalArgumentException(
-                    "Geen gebruiker gevonden met e-mailadres: %s".formatted(email));
-
-        } catch (NonUniqueResultException ex) {
-            throw new IllegalArgumentException(
-                    "Meerdere gebruikers gevonden met e-mailadres: %s".formatted(email));
+            return null;
         }
     }
 }
