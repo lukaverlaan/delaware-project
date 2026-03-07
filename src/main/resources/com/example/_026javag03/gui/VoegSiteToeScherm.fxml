@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="content-pane">
+
+    <center>
+        <VBox spacing="30" alignment="TOP_LEFT" styleClass="card">
+
+            <padding>
+                <Insets top="40" right="100" bottom="40" left="100"/>
+            </padding>
+
+            <GridPane hgap="20" vgap="15"
+                      styleClass="card form-container">
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+
+                <Label text="Naam" GridPane.rowIndex="0"/>
+                <TextField fx:id="naamField" GridPane.rowIndex="1"/>
+
+                <Label text="Locatie" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <TextField fx:id="locatieField"
+                           GridPane.rowIndex="1"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Capaciteit" GridPane.rowIndex="2"/>
+                <TextField fx:id="capaciteitField"
+                           GridPane.rowIndex="3"/>
+
+                <Label text="Operationele status"
+                       GridPane.rowIndex="2"
+                       GridPane.columnIndex="1"/>
+
+                <ComboBox fx:id="operationeleStatusCombo"
+                          GridPane.rowIndex="3"
+                          GridPane.columnIndex="1"/>
+
+                <Label text="Productie status"
+                       GridPane.rowIndex="4"/>
+
+                <ComboBox fx:id="productieStatusCombo"
+                          GridPane.rowIndex="5"/>
+
+                <HBox spacing="15"
+                      alignment="CENTER_RIGHT"
+                      GridPane.rowIndex="6"
+                      GridPane.columnIndex="1">
+
+                    <Button text="← Terug"
+                            styleClass="secondary-button"
+                            onAction="#handleTerug"/>
+
+                    <Button text="Toevoegen"
+                            styleClass="primary-button"
+                            onAction="#handleToevoegen"/>
+                </HBox>
+            </GridPane>
+        </VBox>
+    </center>
+</BorderPane>

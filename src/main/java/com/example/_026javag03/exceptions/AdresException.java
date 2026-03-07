@@ -1,18 +1,18 @@
 package com.example._026javag03.exceptions;
 
-import com.example._026javag03.util.AdresAtrributes;
+import com.example._026javag03.util.gebruiker.AdresAttributes;
 
-import java.util.Set;
+import java.util.Map;
 
 public class AdresException extends Exception {
 
-    private Set<AdresAtrributes> requiredAttrs;
+    private Map<AdresAttributes,String> requiredAttrs;
 
-    public AdresException(Set<AdresAtrributes> reqAttributes) {
+    public AdresException(Map<AdresAttributes,String> reqAttributes) {
         this.requiredAttrs = reqAttributes;
     }
 
-    public Set<AdresAtrributes> getRequired() {
+    public Map<AdresAttributes,String> getRequired() {
         return requiredAttrs;
     }
 }

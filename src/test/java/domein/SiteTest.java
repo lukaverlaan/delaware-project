@@ -2,18 +2,16 @@ package domein;
 
 import com.example._026javag03.domein.Site;
 import com.example._026javag03.exceptions.SiteException;
-import com.example._026javag03.util.ProductieStatus;
-import com.example._026javag03.util.SiteAttributes;
+import com.example._026javag03.util.site.ProductieStatus;
+import com.example._026javag03.util.site.SiteAttributes;
 import com.example._026javag03.util.Status;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 

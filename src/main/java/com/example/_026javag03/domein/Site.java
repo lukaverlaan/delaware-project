@@ -1,8 +1,8 @@
 package com.example._026javag03.domein;
 
 import com.example._026javag03.exceptions.SiteException;
-import com.example._026javag03.util.ProductieStatus;
-import com.example._026javag03.util.SiteAttributes;
+import com.example._026javag03.util.site.ProductieStatus;
+import com.example._026javag03.util.site.SiteAttributes;
 import com.example._026javag03.util.Status;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,10 +16,10 @@ import lombok.Setter;
 public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private int id;
+    private Long id;
 
+    @Column(unique = true)
     private String naam;
     private String locatie;
     private int capaciteit;

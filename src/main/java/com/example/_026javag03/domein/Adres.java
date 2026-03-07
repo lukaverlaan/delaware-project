@@ -1,14 +1,13 @@
 package com.example._026javag03.domein;
 
 import com.example._026javag03.exceptions.AdresException;
-import com.example._026javag03.util.AdresAtrributes;
+import com.example._026javag03.util.gebruiker.AdresAttributes;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Embeddable
 @Getter
@@ -68,29 +67,27 @@ public class Adres {
             return this;
         }
 
-        protected Set<AdresAtrributes> reqAttributes = new HashSet<>();
+        protected Map<AdresAttributes,String> reqAttributes = new HashMap<>();
         public Adres buildAdres() throws AdresException {
 
-            if (straat == null || straat.isBlank()) {
-                reqAttributes.add(AdresAtrributes.STRAAT);
+            if (straat == null || straat.isBlank()){
+                reqAttributes.put(AdresAttributes.STRAAT,"Straat is leeg");
+            }
+            if ( huisnr == null || huisnr.isEmpty()){
+                reqAttributes.put(AdresAttributes.HUISNUMMER,"Huisnummer is leeg");
+            } else if(huisnr.charAt(0) == '0' || huisnr.charAt(0) == '-') {
+                reqAttributes.put(AdresAttributes.HUISNUMMER,"Huisnummer begint niet met een 0");
+            }
+            if (postcode <= 0 || String.valueOf(postcode).length() != 4){
+                reqAttributes.put(AdresAttributes.POSTCODE,"Postcode moet een geldig zijn");
+            }
+            if (stad == null || stad.isBlank()){
+                reqAttributes.put(AdresAttributes.STAD,"Stad moet ingevuld zijn");
             }
 
-            if (huisnr == null || huisnr.isBlank()) {
-                reqAttributes.add(AdresAtrributes.HUISNUMMER);
-            }
-
-            if (postcode <= 0 || String.valueOf(postcode).length() != 4) {
-                reqAttributes.add(AdresAtrributes.POSTCODE);
-            }
-
-            if (stad == null || stad.isBlank()) {
-                reqAttributes.add(AdresAtrributes.STAD);
-            }
-
-            if (!reqAttributes.isEmpty()) {
+            if(!reqAttributes.isEmpty()){
                 throw new AdresException(reqAttributes);
             }
-
             return new Adres(this);
         }
     }

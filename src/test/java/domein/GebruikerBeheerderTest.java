@@ -1,13 +1,12 @@
 package domein;
 
 import com.example._026javag03.domein.Gebruiker;
-import com.example._026javag03.domein.GebruikerBeheerder;
+import com.example._026javag03.domein.beheerder.GebruikerBeheerder;
 import com.example._026javag03.exceptions.AdresException;
-import com.example._026javag03.repository.GebruikerDao;
-import com.example._026javag03.util.Rol;
+import com.example._026javag03.repository.gebruiker.GebruikerDao;
+import com.example._026javag03.util.gebruiker.Rol;
 import com.example._026javag03.util.Status;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

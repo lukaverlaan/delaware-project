@@ -1,6 +1,6 @@
 package com.example._026javag03.dto;
 
-import com.example._026javag03.util.Rol;
+import com.example._026javag03.util.gebruiker.Rol;
 import com.example._026javag03.util.Status;
 
 import java.time.LocalDate;

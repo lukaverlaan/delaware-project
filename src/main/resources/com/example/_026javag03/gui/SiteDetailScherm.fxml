@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/21"
+          xmlns:fx="http://javafx.com/fxml"
+          hgap="20"
+          vgap="12"
+          prefWidth="600"
+          minWidth="600">
+
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints percentWidth="35"/>
+        <ColumnConstraints percentWidth="65"/>
+    </columnConstraints>
+
+    <Label text="Naam" GridPane.rowIndex="0"/>
+    <TextField fx:id="naamField"
+               GridPane.rowIndex="0"
+               GridPane.columnIndex="1"/>
+
+    <Label text="Locatie"
+           GridPane.rowIndex="1"/>
+
+    <TextField fx:id="locatieField"
+               GridPane.rowIndex="1"
+               GridPane.columnIndex="1"/>
+
+    <Label text="Capaciteit"
+           GridPane.rowIndex="2"/>
+
+    <TextField fx:id="capaciteitField"
+               GridPane.rowIndex="2"
+               GridPane.columnIndex="1"/>
+
+    <Label text="Operationele status"
+           GridPane.rowIndex="3"/>
+
+    <ComboBox fx:id="operationeleStatusCombo"
+              GridPane.rowIndex="3"
+              GridPane.columnIndex="1"/>
+
+    <Label text="Productie status"
+           GridPane.rowIndex="4"/>
+
+    <ComboBox fx:id="productieStatusCombo"
+              GridPane.rowIndex="4"
+              GridPane.columnIndex="1"/>
+
+    <HBox spacing="15"
+          alignment="CENTER_RIGHT"
+          GridPane.rowIndex="5"
+          GridPane.columnIndex="1">
+
+        <Button text="Opslaan"
+                onAction="#handleOpslaan"
+                prefWidth="120"/>
+
+        <Button text="Verwijderen"
+                onAction="#handleVerwijder"
+                prefWidth="120"/>
+
+    </HBox>
+
+</GridPane>

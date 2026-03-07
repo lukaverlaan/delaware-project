@@ -1,6 +1,6 @@
 package com.example._026javag03;
 
-import com.example._026javag03.gui.BaseController;
+import com.example._026javag03.gui.controller.BaseController;
 import javafx.application.Application;
 
 public class Launcher {

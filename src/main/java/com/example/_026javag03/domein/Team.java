@@ -1,17 +1,15 @@
 package com.example._026javag03.domein;
 
 import com.example._026javag03.exceptions.TeamException;
-import com.example._026javag03.util.Rol;
-import com.example._026javag03.util.TeamAttributes;
+import com.example._026javag03.util.gebruiker.Rol;
+import com.example._026javag03.util.team.TeamAttributes;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Setter
 @Getter
@@ -20,9 +18,8 @@ import java.util.Set;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private int id;
+    private Long id;
 
     private String code;
     @ManyToOne
@@ -42,7 +39,7 @@ public class Team {
     }
 
 
-    private static class TeamBuilder {
+    public static class TeamBuilder {
         private Site site;
         private Gebruiker verantwoordelijke;
 
@@ -56,28 +53,30 @@ public class Team {
             return this;
         }
 
-        private Set<TeamAttributes> required = new HashSet<>();
-        public TeamBuilder build() throws TeamException {
+        private Map<TeamAttributes,String> required = new HashMap<>();
+        public Team build() throws TeamException {
             if(site == null){
-                required.add(TeamAttributes.SITE);
+                required.put(TeamAttributes.SITE,"Site is leeg");
             }
 
-            if(verantwoordelijke == null || verantwoordelijke.getRol() != Rol.VERANTWOORDELIJKE){
-                required.add(TeamAttributes.VERANTWOORDELIJKE);
+            if(verantwoordelijke == null){
+                required.put(TeamAttributes.VERANTWOORDELIJKE,"Verantwoordelijke is leeg");
+            } else if(verantwoordelijke.getRol() != Rol.VERANTWOORDELIJKE){
+                required.put(TeamAttributes.VERANTWOORDELIJKE,"De werknemer is geen Verantwoordelijke");
             }
 
             if(!required.isEmpty()){
                 throw new TeamException(required);
             }
 
-            return this;
+            return new Team(this);
         }
 
     }
 
     @Override
     public String toString() {
-        return "%s %s, %s, %s"
+        return "%s, %s, %s, %s"
                 .formatted(code,site,verantwoordelijke,medewerkers);
     }
 }

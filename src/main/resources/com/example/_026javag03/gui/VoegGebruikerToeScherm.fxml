@@ -11,7 +11,7 @@
             styleClass="content-pane">
 
     <center>
-        <VBox spacing="30" alignment="TOP_LEFT">
+        <VBox spacing="30" alignment="TOP_LEFT" styleClass="card">
             <padding>
                 <Insets top="40" right="100" bottom="40" left="100"/>
             </padding>
@@ -86,12 +86,20 @@
                                  toggleGroup="$statusGroup"/>
                 </HBox>
 
-                <Button text="Toevoegen"
-                        styleClass="primary-button"
-                        GridPane.rowIndex="12"
-                        GridPane.columnIndex="1"
-                        GridPane.halignment="RIGHT"
-                        onAction="#handleToevoegen"/>
+                <HBox spacing="15"
+                      alignment="CENTER_RIGHT"
+                      GridPane.rowIndex="12"
+                      GridPane.columnIndex="1">
+
+                    <Button text="← Terug"
+                            styleClass="secondary-button"
+                            onAction="#handleTerug"/>
+
+                    <Button text="Toevoegen"
+                            styleClass="primary-button"
+                            onAction="#handleToevoegen"/>
+
+                </HBox>
 
             </GridPane>
 

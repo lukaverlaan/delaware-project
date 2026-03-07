@@ -2,7 +2,7 @@ package domein;
 
 import com.example._026javag03.domein.Gebruiker;
 import com.example._026javag03.exceptions.AdresException;
-import com.example._026javag03.util.Rol;
+import com.example._026javag03.util.gebruiker.Rol;
 import com.example._026javag03.util.Status;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;

@@ -2,31 +2,47 @@ package domein;
 
 import com.example._026javag03.domein.Adres;
 import com.example._026javag03.exceptions.AdresException;
-import com.example._026javag03.util.AdresAtrributes;
+import com.example._026javag03.util.gebruiker.AdresAttributes;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.example._026javag03.util.AdresAtrributes.*;
+import static com.example._026javag03.util.gebruiker.AdresAttributes.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AdresTest {
 
-    private static Stream<org.junit.jupiter.params.provider.Arguments> geldigeAdressen() {
+    private static final String GELDIGE_STRAAT = "Laarnesteenweg";
+    private static final String GELDIG_HUISNR = "52";
+    private static final String GELDIGE_POSTBUS = "52A";
+    private static final int GELDIGE_POSTCODE = 9000;
+    private static final String GELDIGE_STAD = "Gent";
+
+    private static Stream<Arguments> geldigeAdressen() {
         return Stream.of(
-                org.junit.jupiter.params.provider.Arguments.of("Kerkstraat", "10", null, 1000, "Brussel"),
-                org.junit.jupiter.params.provider.Arguments.of("Stationstraat", "25", "A", 2000, "Antwerpen")
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD),
+                Arguments.of(GELDIGE_STRAAT, "1",GELDIGE_POSTBUS, 9000, GELDIGE_STAD),
+                Arguments.of(GELDIGE_STRAAT, "52",GELDIGE_POSTBUS, 9230, GELDIGE_STAD)
         );
     }
 
-    private static Stream<org.junit.jupiter.params.provider.Arguments> ongeldigeAdressen() {
+    private static Stream<Arguments> ongeldigeAdressen() {
         return Stream.of(
-                org.junit.jupiter.params.provider.Arguments.of(null, "10", null, 1000, "Brussel", Set.of(STRAAT)),
-                org.junit.jupiter.params.provider.Arguments.of("Kerkstraat", "", null, 1000, "Brussel", Set.of(HUISNUMMER)),
-                org.junit.jupiter.params.provider.Arguments.of("Kerkstraat", "10", null, 999, "Brussel", Set.of(POSTCODE)),
-                org.junit.jupiter.params.provider.Arguments.of("Kerkstraat", "10", null, 1000, "", Set.of(STAD))
+                Arguments.of("  ", GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, STRAAT),
+                Arguments.of(null, GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, STRAAT),
+                Arguments.of("", GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, STRAAT),
+                Arguments.of(GELDIGE_STRAAT, "0",GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, HUISNUMMER),
+                Arguments.of(GELDIGE_STRAAT, "-23",GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, HUISNUMMER),
+                Arguments.of(GELDIGE_STRAAT, "-1",GELDIGE_POSTBUS, GELDIGE_POSTCODE, GELDIGE_STAD, HUISNUMMER),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, 0, GELDIGE_STAD, POSTCODE),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, 123, GELDIGE_STAD, POSTCODE),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, 12345, GELDIGE_STAD, POSTCODE),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, -1234, GELDIGE_STAD, POSTCODE),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, "", STAD),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, "    ", STAD),
+                Arguments.of(GELDIGE_STRAAT, GELDIG_HUISNR,GELDIGE_POSTBUS, GELDIGE_POSTCODE, null, STAD)
         );
     }
 
@@ -54,7 +70,7 @@ class AdresTest {
     @MethodSource("ongeldigeAdressen")
     void maakAdres_ongeldig(String straat, String huisnr, String postbus,
                             int postcode, String stad,
-                            Set<AdresAtrributes> expected) {
+                            AdresAttributes expected) {
 
         AdresException ex = assertThrows(AdresException.class, () ->
                 Adres.adresBuilder()
@@ -66,6 +82,7 @@ class AdresTest {
                         .buildAdres()
         );
 
-        assertEquals(expected, ex.getRequired());
+        assertTrue(ex.getRequired().containsKey(expected));
     }
+
 }

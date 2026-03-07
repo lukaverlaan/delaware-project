@@ -1,61 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<GridPane xmlns="http://javafx.com/javafx/21"
-          xmlns:fx="http://javafx.com/fxml"
-          hgap="20"
-          vgap="12"
-          prefWidth="600"
+<?xml version="1.0" encoding="UTF-8"?> <?import javafx.geometry.Insets?> <?import javafx.scene.control.*?> <?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml" hgap="20" vgap="12" prefWidth="600"
           minWidth="600">
-
     <padding>
         <Insets top="25" right="30" bottom="25" left="30"/>
     </padding>
-
     <columnConstraints>
         <ColumnConstraints percentWidth="35"/>
         <ColumnConstraints percentWidth="65"/>
     </columnConstraints>
-
     <Label text="Voornaam" GridPane.rowIndex="0"/>
     <TextField fx:id="voornaamField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-
     <Label text="Naam" GridPane.rowIndex="1"/>
     <TextField fx:id="naamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
     <Label text="Personeelsnummer" GridPane.rowIndex="2"/>
     <TextField fx:id="personeelsnummerField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-
     <Label text="Email" GridPane.rowIndex="3"/>
     <TextField fx:id="emailField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
     <Label text="Telefoon" GridPane.rowIndex="4"/>
     <TextField fx:id="telefoonField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-
     <Label text="Straat" GridPane.rowIndex="5"/>
     <TextField fx:id="straatField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
     <Label text="Nr" GridPane.rowIndex="6"/>
     <TextField fx:id="nummerField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-
     <Label text="Postbus" GridPane.rowIndex="7"/>
     <TextField fx:id="postbusField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-
     <Label text="Stad" GridPane.rowIndex="8"/>
     <TextField fx:id="stadField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-
     <Label text="Postcode" GridPane.rowIndex="9"/>
     <TextField fx:id="postcodeField" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
-
     <Label text="Geboortedatum" GridPane.rowIndex="10"/>
     <DatePicker fx:id="geboorteDatumPicker" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
-
     <Label text="Rol" GridPane.rowIndex="11"/>
     <ComboBox fx:id="rolComboBox" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
-
     <Label text="Status" GridPane.rowIndex="12"/>
     <HBox spacing="15" GridPane.rowIndex="12" GridPane.columnIndex="1">
         <RadioButton fx:id="actiefRadio" text="Actief">
@@ -65,13 +41,8 @@
         </RadioButton>
         <RadioButton fx:id="inactiefRadio" text="Inactief" toggleGroup="$statusGroup"/>
     </HBox>
-
-    <HBox spacing="15"
-          alignment="CENTER_RIGHT"
-          GridPane.rowIndex="13"
-          GridPane.columnIndex="1">
+    <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.rowIndex="13" GridPane.columnIndex="1">
         <Button text="Opslaan" onAction="#handleOpslaan" prefWidth="120"/>
         <Button text="Verwijder" onAction="#handleVerwijder" prefWidth="120"/>
     </HBox>
-
 </GridPane>

@@ -9,48 +9,67 @@
             styleClass="content-pane">
 
     <center>
+
         <VBox spacing="25" alignment="TOP_LEFT" styleClass="card">
+
             <padding>
                 <Insets top="40" right="60" bottom="40" left="60"/>
             </padding>
 
             <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="Gebruikers" styleClass="title"/>
+
+                <Label text="Sites" styleClass="title"/>
+
                 <Pane HBox.hgrow="ALWAYS"/>
+
             </HBox>
 
-            <!-- Zoekveld in aparte HBox zodat het niet uitrekt -->
             <HBox spacing="20" alignment="CENTER_LEFT">
 
                 <TextField fx:id="txtFilter"
-                           promptText="Zoek gebruiker..."
+                           promptText="Zoek site..."
                            styleClass="search-field"/>
 
-                <CheckBox fx:id="actiefCheckBox" text="Actief" selected="true"/>
-                <CheckBox fx:id="inactiefCheckBox" text="Inactief" selected="true"/>
+                <CheckBox fx:id="actiefCheckBox"
+                          text="Actief"
+                          selected="true"/>
 
-                <ComboBox fx:id="rolFilterComboBox"
-                          promptText="Filter op rol"
+                <CheckBox fx:id="inactiefCheckBox"
+                          text="Inactief"
+                          selected="true"/>
+
+                <ComboBox fx:id="productieStatusFilterComboBox"
+                          promptText="Productiestatus"
                           prefWidth="160"/>
 
                 <Pane HBox.hgrow="ALWAYS"/>
 
-                <Button fx:id="btnNieuweGebruiker"
-                        text="+ Nieuwe gebruiker"
+                <Button fx:id="btnNieuweSite"
+                        text="+ Nieuwe site"
                         styleClass="primary-button"/>
 
             </HBox>
 
-            <TableView fx:id="tblvGebruikers"
+            <TableView fx:id="tblvSites"
                        VBox.vgrow="ALWAYS">
 
                 <columns>
-                    <TableColumn fx:id="tblcRol" text="Rol"/>
-                    <TableColumn fx:id="tblcStatus" text="Status"/>
-                    <TableColumn fx:id="tblcVoornaam" text="Voornaam"/>
-                    <TableColumn fx:id="tblcNaam" text="Naam"/>
-                    <TableColumn fx:id="tblcEmail" text="Email"/>
-                    <TableColumn fx:id="tblcGsm" text="Telefoon"/>
+
+                    <TableColumn fx:id="tblcNaam"
+                                 text="Naam"/>
+
+                    <TableColumn fx:id="tblcLocatie"
+                                 text="Locatie"/>
+
+                    <TableColumn fx:id="tblcCapaciteit"
+                                 text="Capaciteit"/>
+
+                    <TableColumn fx:id="tblcOperationeleStatus"
+                                 text="Operationele status"/>
+
+                    <TableColumn fx:id="tblcProductieStatus"
+                                 text="Productie status"/>
+
                 </columns>
 
                 <columnResizePolicy>
@@ -60,6 +79,7 @@
             </TableView>
 
         </VBox>
+
     </center>
 
 </BorderPane>

@@ -1,7 +1,7 @@
 package com.example._026javag03.exceptions;
 
 
-import com.example._026javag03.util.SiteAttributes;
+import com.example._026javag03.util.site.SiteAttributes;
 
 import java.util.Set;
 
