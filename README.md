@@ -1,1 +1,1 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/whogFn_1)
+This is a Java project I'm working on for my Applied Computer Sciences bachelor at HOGent. There are not a lot of commits and/or documentations, since this is just a copy of my real project repository (which is currently only accessible through my school platform).
