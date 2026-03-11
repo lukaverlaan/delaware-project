@@ -5,6 +5,8 @@ import com.example._026javag03.domein.beheerder.GebruikerBeheerder;
 import com.example._026javag03.dto.GebruikerDTO;
 import com.example._026javag03.exceptions.AdresException;
 import com.example._026javag03.exceptions.ValidatieException;
+import com.example._026javag03.util.gebruiker.Rol;
+import com.example._026javag03.util.WachtwoordGenerator;
 import com.example._026javag03.repository.gebruiker.GebruikerDaoJpa;
 
 import java.util.List;
@@ -30,6 +32,9 @@ public class GebruikerController {
         try {
             Gebruiker gebruiker = mapToEntity(dto);
 
+            String wachtwoord = WachtwoordGenerator.genereerWachtwoord(16);
+            gebruiker.setWachtwoord(wachtwoord);
+
             beheerder.insertGebruiker(gebruiker);
 
             String jaar = String.valueOf(java.time.Year.now().getValue());
@@ -38,6 +43,7 @@ public class GebruikerController {
             gebruiker.setPersoneelsnummer(pnr);
             beheerder.updateGebruiker(gebruiker);
 
+            System.out.println("Gegenereerd wachtwoord: " + wachtwoord);
         } catch (AdresException | ValidatieException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -126,6 +132,25 @@ public class GebruikerController {
         )
                 .gsm(dto.telefoonnummer())
                 .build();
+    }
+
+    public List<GebruikerDTO> getVerantwoordelijken() {
+        return beheerder.getGebruikerList()
+                .stream()
+                .filter(g -> g.getRol() == Rol.VERANTWOORDELIJKE)
+                .map(this::mapToDTO)
+                .toList();
+    }
+
+    public GebruikerDTO login(String email, String wachtwoord) {
+
+        Gebruiker gebruiker = beheerder.login(email, wachtwoord);
+
+        if (gebruiker == null) {
+            throw new IllegalArgumentException("Gebruiker bestaat niet.");
+        }
+
+        return mapToDTO(gebruiker);
     }
 
     public void close() {

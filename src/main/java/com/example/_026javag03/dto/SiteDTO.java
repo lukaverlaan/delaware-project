@@ -10,4 +10,9 @@ public record SiteDTO(
         int capaciteit,
         Status operationeleStatus,
         ProductieStatus productieStatus
-) {}
+) {
+    @Override
+    public String toString() {
+        return naam;
+    }
+}

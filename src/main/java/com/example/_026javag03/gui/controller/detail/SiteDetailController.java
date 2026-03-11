@@ -31,9 +31,9 @@ public class SiteDetailController {
         operationeleStatusCombo.getItems().addAll("ACTIEF","INACTIEF");
 
         productieStatusCombo.getItems().addAll(
-                "OPERATIONEEL",
-                "ONDERHOUD",
-                "STILGELEGD"
+                "GEZOND",
+                "PROBLEMEN",
+                "OFFLINE"
         );
 
         naamField.setText(dto.naam());
@@ -62,7 +62,6 @@ public class SiteDetailController {
 
             sc.updateSite(updated);
 
-            toonInfo("Wijzigingen opgeslagen.");
             sluitScherm();
 
         } catch (Exception e) {

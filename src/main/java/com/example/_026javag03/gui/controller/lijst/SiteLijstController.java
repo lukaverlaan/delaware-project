@@ -20,13 +20,13 @@ import java.io.IOException;
 
 public class SiteLijstController {
 
-    private final SiteController dc;
+    private final SiteController sc;
     private final ViewManager viewManager;
 
     private ObservableSiteBeheer observableBeheer;
 
-    public SiteLijstController(SiteController dc, ViewManager viewManager) {
-        this.dc = dc;
+    public SiteLijstController(SiteController sc, ViewManager viewManager) {
+        this.sc = sc;
         this.viewManager = viewManager;
     }
 
@@ -71,7 +71,7 @@ public class SiteLijstController {
         txtFilter.textProperty()
                 .addListener((obs,o,n) -> updateFilter());
 
-        observableBeheer = new ObservableSiteBeheer(dc);
+        observableBeheer = new ObservableSiteBeheer(sc);
 
         tblcNaam.setCellValueFactory(cell -> cell.getValue().naamProperty());
 
@@ -111,7 +111,7 @@ public class SiteLijstController {
     private void openNieuweSite() {
 
         viewManager.showView(
-                new VoegSiteToeController(dc, viewManager).getView()
+                new VoegSiteToeController(sc, viewManager).getView()
         );
     }
 
@@ -123,7 +123,7 @@ public class SiteLijstController {
             );
 
             loader.setController(
-                    new SiteDetailController(dc, observableSite.getDto())
+                    new SiteDetailController(sc, observableSite.getDto())
             );
 
             Parent root = loader.load();

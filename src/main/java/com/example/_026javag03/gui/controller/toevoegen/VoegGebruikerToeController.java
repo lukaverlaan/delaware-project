@@ -78,7 +78,6 @@ public class VoegGebruikerToeController {
         GebruikerDTO dto = new GebruikerDTO(null, null, getRequiredText(naamField), getRequiredText(voornaamField), getRequiredText(emailField), gsm, getRequiredText(straatField), getRequiredText(nummerField), postbus, getRequiredText(stadField), Integer.parseInt(postcodeField.getText().trim()), geboorteDatumPicker.getValue(), Rol.valueOf(rolComboBox.getValue()), actiefRadio.isSelected() ? Status.ACTIEF : Status.INACTIEF);
         try {
             dc.insertGebruiker(dto);
-            toonInfo("Gebruiker succesvol toegevoegd!");
             viewManager.showView(new GebruikerLijstController(dc, viewManager).getView());
         } catch (IllegalArgumentException e) {
             toonFoutmelding(e.getMessage());
@@ -159,14 +158,6 @@ public class VoegGebruikerToeController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fout");
         alert.setHeaderText("Onvolledige invoer");
-        alert.setContentText(boodschap);
-        alert.showAndWait();
-    }
-
-    private void toonInfo(String boodschap) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Succes");
-        alert.setHeaderText(null);
         alert.setContentText(boodschap);
         alert.showAndWait();
     }

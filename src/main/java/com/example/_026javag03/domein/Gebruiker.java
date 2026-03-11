@@ -29,9 +29,14 @@ public class Gebruiker {
     private String voornaam;
     @Embedded
     private Adres adres;
+
     @Column(unique = true)
     private String email;
     private String gsm;
+
+    @Column(nullable = false)
+    private String wachtwoord;
+
     private LocalDate geboortedatum;
     @Enumerated(EnumType.STRING)
     private Rol rol;

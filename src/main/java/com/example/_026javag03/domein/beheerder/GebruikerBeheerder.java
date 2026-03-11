@@ -71,4 +71,28 @@ public class GebruikerBeheerder {
     public void closePersistency() {
         gebruikerRepo.closePersistency();
     }
+
+
+    public Gebruiker login(String email, String wachtwoord) {
+
+        if (email == null || email.isBlank() || wachtwoord == null || wachtwoord.isBlank()) {
+            throw new IllegalArgumentException("Email en wachtwoord moeten ingevuld zijn.");
+        }
+
+        Gebruiker gebruiker = gebruikerRepo.getGebruikerByEmail(email);
+
+        if (gebruiker == null) {
+            throw new IllegalArgumentException("Gebruiker bestaat niet.");
+        }
+
+        if (!gebruiker.getWachtwoord().equals(wachtwoord)) {
+            throw new IllegalArgumentException("Wachtwoord is incorrect.");
+        }
+
+        if (gebruiker.getStatus() == Status.INACTIEF) {
+            throw new IllegalArgumentException("Deze gebruiker is gedeactiveerd.");
+        }
+
+        return gebruiker;
+    }
 }

@@ -36,13 +36,12 @@ public class VoegSiteToeController {
         operationeleStatusCombo.getItems().addAll("ACTIEF","INACTIEF");
 
         productieStatusCombo.getItems().addAll(
-                "OPERATIONEEL",
-                "ONDERHOUD",
-                "STILGELEGD"
+                "GEZOND",
+                "PROBLEMEN",
+                "OFFLINE"
         );
 
         operationeleStatusCombo.setValue("ACTIEF");
-        productieStatusCombo.setValue("OPERATIONEEL");
     }
 
     @FXML
@@ -63,8 +62,10 @@ public class VoegSiteToeController {
 
             sc.insertSite(dto);
 
-            toonInfo("Site succesvol toegevoegd.");
-            resetVelden();
+
+            viewManager.showView(
+                    new SiteLijstController(sc, viewManager).getView()
+            );
 
         } catch (Exception e) {
 
@@ -125,15 +126,6 @@ public class VoegSiteToeController {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fout");
         alert.setHeaderText("Ongeldige invoer");
-        alert.setContentText(boodschap);
-        alert.showAndWait();
-    }
-
-    private void toonInfo(String boodschap) {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Succes");
-        alert.setHeaderText(null);
         alert.setContentText(boodschap);
         alert.showAndWait();
     }

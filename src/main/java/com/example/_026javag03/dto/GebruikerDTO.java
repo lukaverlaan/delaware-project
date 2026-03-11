@@ -20,4 +20,9 @@ public record GebruikerDTO(
         LocalDate geboorteDatum,
         Rol rol,
         Status status
-) {}
+) {
+    @Override
+    public String toString() {
+        return personeelsnummer + " - " + voornaam + " " + naam;
+    }
+}

@@ -74,7 +74,6 @@ public class GebruikerDetailController {
         try {
             GebruikerDTO updatedDTO = new GebruikerDTO(dto.id(), dto.personeelsnummer(), naamField.getText().trim(), voornaamField.getText().trim(), emailField.getText().trim(), telefoonField.getText().isBlank() ? null : telefoonField.getText().trim(), straatField.getText().trim(), nummerField.getText().trim(), postbusField.getText().isBlank() ? null : postbusField.getText().trim(), stadField.getText().trim(), Integer.parseInt(postcodeField.getText().trim()), geboorteDatumPicker.getValue(), Rol.valueOf(rolComboBox.getValue()), actiefRadio.isSelected() ? Status.ACTIEF : Status.INACTIEF);
             dc.updateGebruiker(updatedDTO);
-            toonInfo("Wijzigingen opgeslagen.");
             sluitScherm();
         } catch (IllegalArgumentException e) {
             toonFoutmelding(e.getMessage());
@@ -85,7 +84,7 @@ public class GebruikerDetailController {
     private void handleVerwijder() {
         GebruikerDTO updatedDTO = new GebruikerDTO(dto.id(), dto.personeelsnummer(), dto.naam(), dto.voornaam(), dto.email(), dto.telefoonnummer(), dto.straat(), dto.nummer(), dto.postbus(), dto.stad(), dto.postcode(), dto.geboorteDatum(), dto.rol(), Status.INACTIEF);
         dc.updateGebruiker(updatedDTO);
-        toonInfo("Gebruiker op inactief gezet.");
+        toonInfo("Gebruiker heeft nu status inactief.");
         sluitScherm();
     }
 

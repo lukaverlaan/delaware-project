@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+    @Setter//(AccessLevel.NONE)
     private Long id;
 
     @Column(unique = true)

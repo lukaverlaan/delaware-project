@@ -14,11 +14,12 @@ import java.util.*;
 @Setter
 @Getter
 @Entity
+@Table(name = "teams")
 @NoArgsConstructor
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+    @Setter
     private Long id;
 
     private String code;
@@ -27,7 +28,7 @@ public class Team {
     @ManyToOne
     private Gebruiker verantwoordelijke;
     @OneToMany
-    private List<Gebruiker> medewerkers;
+    private List<Gebruiker> medewerkers = new ArrayList<>();
 
     private Team (TeamBuilder builder){
         this.verantwoordelijke = builder.verantwoordelijke;
