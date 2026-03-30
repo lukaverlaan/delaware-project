@@ -5,9 +5,11 @@ import com.example._026javag03.util.site.ProductieStatus;
 import com.example._026javag03.util.site.SiteAttributes;
 import com.example._026javag03.util.Status;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "sites")
@@ -16,7 +18,6 @@ import lombok.Setter;
 public class Site {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter//(AccessLevel.NONE)
     private Long id;
 
     @Column(unique = true)
@@ -79,35 +80,35 @@ public class Site {
             return this;
         }
 
+        protected Map<SiteAttributes,String> reqAttributes = new HashMap<>();
         public Site buildSite() throws SiteException {
-            java.util.Set<SiteAttributes> reqAttributes = new java.util.HashSet<>();
 
             // Validatie naam
             if (naam == null || naam.isBlank()) {
-                reqAttributes.add(SiteAttributes.NAAM);
+                reqAttributes.put(SiteAttributes.NAAM,"Naam is leeg");
             }
 
             // Validatie locatie
             if (locatie == null || locatie.isBlank()) {
-                reqAttributes.add(SiteAttributes.LOCATIE);
+                reqAttributes.put(SiteAttributes.LOCATIE,"Locatie is leeg");
             }
 
             // Validatie capaciteit
             if (capaciteit <= 0) {
-                reqAttributes.add(SiteAttributes.CAPACITEIT);
+                reqAttributes.put(SiteAttributes.CAPACITEIT,"Capaciteit is leeg");
             }
 
             // Validatie operationele status
             if (operationeleStatus == null) {
-                reqAttributes.add(SiteAttributes.OPERATIONELE_STATUS);
+                reqAttributes.put(SiteAttributes.OPERATIONELE_STATUS,"Operationele status is leeg");
             }
 
             // Validatie productie status
             if (productieStatus == null) {
-                reqAttributes.add(SiteAttributes.PRODUCTIE_STATUS);
+                reqAttributes.put(SiteAttributes.PRODUCTIE_STATUS,"Productie status is leeg");
             }
 
-            if (!reqAttributes.isEmpty()) {
+            if(!reqAttributes.isEmpty()){
                 throw new SiteException(reqAttributes);
             }
 

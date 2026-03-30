@@ -1,28 +1,23 @@
 package com.example._026javag03.gui.weergave;
 
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.BorderPane;
+import lombok.Getter;
+import lombok.Setter;
 
 public class ViewManager {
 
     private BorderPane root;
+
+    @Setter
+    @Getter
+    private boolean emailVerstuurd;
 
     public ViewManager(BorderPane root) {
         this.root = root;
     }
 
     public void showView(Node view) {
-        if (view instanceof Region region) {
-            region.setBorder(new Border(new BorderStroke(
-                    Color.BLACK,
-                    BorderStrokeStyle.SOLID,
-                    new CornerRadii(0),
-                    new BorderWidths(2)
-            )));
-            region.setPadding(new Insets(10));
-        }
         root.setCenter(view);
     }
 }

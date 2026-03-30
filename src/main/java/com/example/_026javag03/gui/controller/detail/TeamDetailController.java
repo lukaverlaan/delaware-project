@@ -24,10 +24,10 @@ public class TeamDetailController {
     private final GebruikerController gc;
     private final TeamDTO dto;
 
-    private final ObservableList<GebruikerDTO> medewerkers =
+    private final ObservableList<GebruikerDTO> werknemers =
             FXCollections.observableArrayList();
 
-    private final ObservableList<GebruikerDTO> beschikbareMedewerkers =
+    private final ObservableList<GebruikerDTO> beschikbareWerknemers =
             FXCollections.observableArrayList();
 
     public TeamDetailController(
@@ -47,8 +47,10 @@ public class TeamDetailController {
     @FXML private ComboBox<SiteDTO> siteBox;
     @FXML private ComboBox<GebruikerDTO> verantwoordelijkeBox;
 
-    @FXML private ListView<GebruikerDTO> medewerkersList;
-    @FXML private ComboBox<GebruikerDTO> medewerkerCombo;
+    @FXML private ListView<GebruikerDTO> werknemersList;
+    @FXML private ComboBox<GebruikerDTO> werknemerCombo;
+    @FXML private Button btnToevoegen;
+    @FXML private Button btnVerwijderen;
 
     @FXML
     private void initialize() {
@@ -76,14 +78,14 @@ public class TeamDetailController {
                 .ifPresent(verantwoordelijkeBox::setValue);
 
         // alle werknemers laden
-        beschikbareMedewerkers.addAll(
+        beschikbareWerknemers.addAll(
                 gc.getGebruikers()
                         .stream()
                         .filter(g -> g.rol() == Rol.WERKNEMER)
                         .toList()
         );
 
-        // bestaande medewerkers
+        // bestaande werknemers
         if (dto.werknemers() != null) {
 
             dto.werknemers().forEach(id -> {
@@ -93,8 +95,8 @@ public class TeamDetailController {
                         .filter(g -> g.id().equals(id))
                         .findFirst()
                         .ifPresent(g -> {
-                            medewerkers.add(g);
-                            beschikbareMedewerkers.remove(g);
+                            werknemers.add(g);
+                            beschikbareWerknemers.remove(g);
                         });
             });
         }
@@ -102,29 +104,12 @@ public class TeamDetailController {
         Comparator<GebruikerDTO> sorteer =
                 Comparator.comparing(g -> g.voornaam() + g.naam());
 
-        medewerkers.sort(sorteer);
-        beschikbareMedewerkers.sort(sorteer);
+        werknemers.sort(sorteer);
+        beschikbareWerknemers.sort(sorteer);
 
-        medewerkersList.setItems(medewerkers);
+        werknemersList.setItems(werknemers);
 
-        medewerkersList.setCellFactory(list -> new ListCell<>() {
-
-            @Override
-            protected void updateItem(GebruikerDTO item, boolean empty) {
-
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.voornaam() + " " + item.naam());
-                }
-            }
-        });
-
-        medewerkerCombo.setItems(beschikbareMedewerkers);
-
-        medewerkerCombo.setCellFactory(list -> new ListCell<>() {
+        werknemersList.setCellFactory(list -> new ListCell<>() {
 
             @Override
             protected void updateItem(GebruikerDTO item, boolean empty) {
@@ -139,20 +124,50 @@ public class TeamDetailController {
             }
         });
 
-        medewerkerCombo.setButtonCell(medewerkerCombo.getCellFactory().call(null));
+        werknemerCombo.setItems(beschikbareWerknemers);
+
+        werknemerCombo.setCellFactory(list -> new ListCell<>() {
+
+            @Override
+            protected void updateItem(GebruikerDTO item, boolean empty) {
+
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.voornaam() + " " + item.naam());
+                }
+            }
+        });
+
+        werknemerCombo.setButtonCell(werknemerCombo.getCellFactory().call(null));
+
+        // Toevoegen knop
+        werknemerCombo.valueProperty().addListener((obs, oldV, newV) -> {
+            btnToevoegen.setDisable(newV == null);
+        });
+
+        // Verwijderen knop
+        werknemersList.getSelectionModel().selectedItemProperty().addListener((obs, oldV, newV) -> {
+            btnVerwijderen.setDisable(newV == null);
+        });
+
+        btnToevoegen.setDisable(true);
+        btnVerwijderen.setDisable(true);
     }
 
     @FXML
     private void handleToevoegen() {
 
-        GebruikerDTO geselecteerd = medewerkerCombo.getValue();
+        GebruikerDTO geselecteerd = werknemerCombo.getValue();
 
         if (geselecteerd != null) {
 
-            medewerkers.add(geselecteerd);
-            beschikbareMedewerkers.remove(geselecteerd);
+            werknemers.add(geselecteerd);
+            beschikbareWerknemers.remove(geselecteerd);
 
-            medewerkerCombo.setValue(null);
+            werknemerCombo.setValue(null);
         }
     }
 
@@ -160,12 +175,12 @@ public class TeamDetailController {
     private void handleVerwijderen() {
 
         GebruikerDTO geselecteerd =
-                medewerkersList.getSelectionModel().getSelectedItem();
+                werknemersList.getSelectionModel().getSelectedItem();
 
         if (geselecteerd != null) {
 
-            medewerkers.remove(geselecteerd);
-            beschikbareMedewerkers.add(geselecteerd);
+            werknemers.remove(geselecteerd);
+            beschikbareWerknemers.add(geselecteerd);
         }
     }
 
@@ -198,7 +213,7 @@ public class TeamDetailController {
                 return;
             }
 
-            List<Long> ids = medewerkers.stream()
+            List<Long> ids = werknemers.stream()
                     .map(GebruikerDTO::id)
                     .collect(Collectors.toList());
 

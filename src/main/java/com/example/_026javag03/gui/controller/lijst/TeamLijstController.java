@@ -90,6 +90,10 @@ public class TeamLijstController {
 
         btnNieuwTeam.setOnAction(e -> openNieuwTeam());
 
+        if (gc.isVerantwoordelijke()) {
+            btnNieuwTeam.setVisible(false);
+        }
+
         tblvTeams.setRowFactory(tv -> {
             TableRow<ObservableTeam> row = new TableRow<>();
 
@@ -110,22 +114,7 @@ public class TeamLijstController {
     }
 
     private void updateFilter() {
-
-        String zoektekst = txtFilter.getText();
-
-        observableBeheer.getFilteredTeams().setPredicate(team -> {
-
-            if (zoektekst == null || zoektekst.isBlank()) {
-                return true;
-            }
-
-            String lower = zoektekst.toLowerCase();
-
-            return contains(team.getCode(), lower)
-                    || contains(String.valueOf(team.getSite()), lower)
-                    || contains(String.valueOf(team.getVerantwoordelijke()), lower)
-                    || contains(String.valueOf(team.getAantalMedewerkers()), lower);
-        });
+        observableBeheer.changeFilter(txtFilter.getText());
     }
 
     private boolean contains(String value, String filter) {

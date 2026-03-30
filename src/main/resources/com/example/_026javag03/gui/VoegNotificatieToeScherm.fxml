@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="content-pane">
+
+    <center>
+        <VBox spacing="30" alignment="TOP_LEFT" styleClass="card">
+
+            <padding>
+                <Insets top="40" right="100" bottom="40" left="100"/>
+            </padding>
+
+            <GridPane hgap="20" vgap="15">
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50"/>
+                    <ColumnConstraints percentWidth="50"/>
+                </columnConstraints>
+
+                <!-- TYPE -->
+                <Label text="Type" GridPane.rowIndex="0"/>
+                <TextField fx:id="typeField" GridPane.rowIndex="1"/>
+
+                <!-- INHOUD -->
+                <Label text="Inhoud" GridPane.rowIndex="2"/>
+                <TextArea fx:id="inhoudArea"
+                          GridPane.rowIndex="3"
+                          GridPane.columnSpan="2"
+                          prefRowCount="4"/>
+
+                <!-- KNOPPEN -->
+                <HBox spacing="15"
+                      alignment="CENTER_RIGHT"
+                      GridPane.rowIndex="4"
+                      GridPane.columnIndex="1">
+
+                    <Button text="← Terug"
+                            styleClass="secondary-button"
+                            onAction="#handleTerug"/>
+
+                    <Button text="Toevoegen"
+                            styleClass="primary-button"
+                            onAction="#handleToevoegen"/>
+                </HBox>
+
+            </GridPane>
+        </VBox>
+    </center>
+
+</BorderPane>

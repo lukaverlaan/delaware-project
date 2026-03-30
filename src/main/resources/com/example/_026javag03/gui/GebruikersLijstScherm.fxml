@@ -1,65 +1,82 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1">
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            styleClass="content-pane">
+    <BorderPane styleClass="content-pane">
 
-    <center>
-        <VBox spacing="25" alignment="TOP_LEFT" styleClass="card">
-            <padding>
-                <Insets top="40" right="60" bottom="40" left="60"/>
-            </padding>
+        <center>
+            <VBox spacing="25" alignment="TOP_LEFT" styleClass="card">
+                <padding>
+                    <Insets top="40" right="60" bottom="40" left="60"/>
+                </padding>
 
-            <HBox alignment="CENTER_LEFT" spacing="20">
-                <Label text="Gebruikers" styleClass="title"/>
-                <Pane HBox.hgrow="ALWAYS"/>
-            </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <Label text="Gebruikers" styleClass="title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                </HBox>
 
-            <!-- Zoekveld in aparte HBox zodat het niet uitrekt -->
-            <HBox spacing="20" alignment="CENTER_LEFT">
+                <!-- Zoekveld in aparte HBox zodat het niet uitrekt -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
 
-                <TextField fx:id="txtFilter"
-                           promptText="Zoek gebruiker..."
-                           styleClass="search-field"/>
+                    <TextField fx:id="txtFilter"
+                               promptText="Zoek gebruiker..."
+                               styleClass="search-field"/>
 
-                <CheckBox fx:id="actiefCheckBox" text="Actief" selected="true"/>
-                <CheckBox fx:id="inactiefCheckBox" text="Inactief" selected="true"/>
+                    <CheckBox fx:id="actiefCheckBox" text="Actief" selected="true"/>
+                    <CheckBox fx:id="inactiefCheckBox" text="Inactief" selected="true"/>
 
-                <ComboBox fx:id="rolFilterComboBox"
-                          promptText="Filter op rol"
-                          prefWidth="160"/>
+                    <ComboBox fx:id="rolFilterComboBox"
+                              promptText="Filter op rol"
+                              prefWidth="160"/>
 
-                <Pane HBox.hgrow="ALWAYS"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
 
-                <Button fx:id="btnNieuweGebruiker"
-                        text="+ Nieuwe gebruiker"
-                        styleClass="primary-button"/>
+                    <Button fx:id="btnNieuweGebruiker"
+                            text="+ Nieuwe gebruiker"
+                            styleClass="primary-button"/>
 
-            </HBox>
+                </HBox>
 
-            <TableView fx:id="tblvGebruikers"
-                       VBox.vgrow="ALWAYS">
+                <TableView fx:id="tblvGebruikers"
+                           VBox.vgrow="ALWAYS">
 
-                <columns>
-                    <TableColumn fx:id="tblcRol" text="Rol"/>
-                    <TableColumn fx:id="tblcStatus" text="Status"/>
-                    <TableColumn fx:id="tblcVoornaam" text="Voornaam"/>
-                    <TableColumn fx:id="tblcNaam" text="Naam"/>
-                    <TableColumn fx:id="tblcEmail" text="Email"/>
-                    <TableColumn fx:id="tblcGsm" text="Telefoon"/>
-                </columns>
+                    <columns>
+                        <TableColumn fx:id="tblcRol" text="Rol"/>
+                        <TableColumn fx:id="tblcStatus" text="Status"/>
+                        <TableColumn fx:id="tblcNaam" text="Naam"/>
+                        <TableColumn fx:id="tblcVoornaam" text="Voornaam"/>
+                        <TableColumn fx:id="tblcEmail" text="Email"/>
+                        <TableColumn fx:id="tblcGsm" text="Telefoon"/>
+                    </columns>
 
-                <columnResizePolicy>
-                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
-                </columnResizePolicy>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
 
-            </TableView>
+                </TableView>
 
-        </VBox>
-    </center>
+            </VBox>
+        </center>
 
-</BorderPane>
+    </BorderPane>
+
+    <!-- Toast melding -->
+    <Label fx:id="toastLabel"
+           text="Email met tijdelijk wachtwoord verstuurd"
+           visible="false"
+           style="-fx-background-color: #333333;
+              -fx-text-fill:white;
+              -fx-font-weight:bold;
+              -fx-padding:10 20;
+              -fx-background-radius:8;"
+           StackPane.alignment="BOTTOM_RIGHT">
+
+        <StackPane.margin>
+            <Insets top="20" right="20" bottom="20" left="20"/>
+        </StackPane.margin>
+
+    </Label>
+
+</StackPane>

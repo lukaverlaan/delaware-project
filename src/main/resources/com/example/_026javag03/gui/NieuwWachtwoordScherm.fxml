@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/24"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.example._026javag03.gui.controller.login.NieuwWachtwoordController">
+
+    <VBox alignment="CENTER">
+
+        <VBox spacing="20"
+              alignment="CENTER"
+              styleClass="card"
+              prefWidth="460"
+              maxWidth="460">
+
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <Label text="Nieuw wachtwoord instellen"
+                   styleClass="title"/>
+
+            <Label text="Om veiligheidsredenen moet je bij de eerste login je wachtwoord wijzigen."
+                   wrapText="true"
+                   styleClass="form-info"
+                   maxWidth="320"/>
+
+            <VBox spacing="12" maxWidth="340">
+
+                <StackPane>
+                    <PasswordField fx:id="wachtwoord1"
+                                   promptText="Nieuw wachtwoord"
+                                   prefWidth="340"/>
+
+                    <TextField fx:id="wachtwoord1Text"
+                               promptText="Nieuw wachtwoord"
+                               prefWidth="340"
+                               visible="false"/>
+                </StackPane>
+
+                <StackPane>
+                    <PasswordField fx:id="wachtwoord2"
+                                   promptText="Herhaal wachtwoord"
+                                   prefWidth="340"/>
+
+                    <TextField fx:id="wachtwoord2Text"
+                               promptText="Herhaal wachtwoord"
+                               prefWidth="340"
+                               visible="false"/>
+                </StackPane>
+            </VBox>
+
+            <CheckBox text="Toon wachtwoord"
+                      onAction="#toggleWachtwoord"/>
+
+            <VBox spacing="4" maxWidth="340">
+
+                <Label text="Wachtwoordvereisten:" styleClass="form-info"/>
+
+                <Label fx:id="reqLength" text="✖ Minstens 8 karakters"/>
+                <Label fx:id="reqUpper" text="✖ Minstens 1 hoofdletter"/>
+                <Label fx:id="reqLower" text="✖ Minstens 1 kleine letter"/>
+                <Label fx:id="reqDigit" text="✖ Minstens 1 cijfer"/>
+                <Label fx:id="reqSpecial" text="✖ Minstens 1 speciaal teken"/>
+
+            </VBox>
+
+            <Label fx:id="errorLabel"
+                   textFill="red"
+                   wrapText="true"
+                   visible="false"
+                   maxWidth="340"/>
+
+            <Button text="Wachtwoord opslaan"
+                    onAction="#wijzigWachtwoord"
+                    styleClass="primary-button"
+                    prefWidth="340"/>
+
+        </VBox>
+
+    </VBox>
+
+</StackPane>

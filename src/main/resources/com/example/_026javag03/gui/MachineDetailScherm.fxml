@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx/21"
+          xmlns:fx="http://javafx.com/fxml"
+          hgap="20"
+          vgap="12"
+          prefWidth="750">
+
+    <padding>
+        <Insets top="25" right="30" bottom="25" left="30"/>
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints percentWidth="35"/>
+        <ColumnConstraints percentWidth="65"/>
+    </columnConstraints>
+
+    <!-- Code -->
+    <Label text="Code" GridPane.rowIndex="0"/>
+    <TextField fx:id="codeField"
+               GridPane.rowIndex="0"
+               GridPane.columnIndex="1"/>
+
+    <!-- Site -->
+    <Label text="Site" GridPane.rowIndex="1"/>
+    <ComboBox fx:id="siteCombo"
+              GridPane.rowIndex="1"
+              GridPane.columnIndex="1"/>
+
+    <!-- Locatie -->
+    <Label text="Locatie" GridPane.rowIndex="2"/>
+    <TextField fx:id="locatieField"
+               GridPane.rowIndex="2"
+               GridPane.columnIndex="1"/>
+
+    <!-- Product info -->
+    <Label text="Product info" GridPane.rowIndex="3"/>
+    <TextArea fx:id="productInfoArea"
+              prefRowCount="3"
+              GridPane.rowIndex="3"
+              GridPane.columnIndex="1"/>
+
+    <!-- Status -->
+    <Label text="Status" GridPane.rowIndex="4"/>
+    <ComboBox fx:id="statusCombo"
+              GridPane.rowIndex="4"
+              GridPane.columnIndex="1"/>
+
+    <!-- Productie status -->
+    <Label text="Productie status" GridPane.rowIndex="5"/>
+    <ComboBox fx:id="productieStatusCombo"
+              GridPane.rowIndex="5"
+              GridPane.columnIndex="1"/>
+
+    <!-- Uptime -->
+    <Label text="Uptime" GridPane.rowIndex="6"/>
+
+    <VBox spacing="8" GridPane.rowIndex="6" GridPane.columnIndex="1">
+
+        <TextField fx:id="uptimeField" editable="false"/>
+
+        <HBox spacing="10">
+            <Button fx:id="startButton" text="Start" onAction="#handleStartUptime"/>
+            <Button fx:id="stopButton" text="Stop" onAction="#handleStopUptime"/>
+            <Button fx:id="resetButton" text="Reset" onAction="#handleResetUptime"/>
+        </HBox>
+
+    </VBox>
+
+    <!-- Onderhoud -->
+    <Label text="Laatste onderhoud" GridPane.rowIndex="7"/>
+    <DatePicker fx:id="onderhoudPicker"
+                GridPane.rowIndex="7"
+                GridPane.columnIndex="1"/>
+
+    <!-- Werknemers -->
+    <Label text="Werknemers" GridPane.rowIndex="8"/>
+
+    <VBox spacing="10" GridPane.rowIndex="8" GridPane.columnIndex="1">
+
+        <ListView fx:id="werknemersList" prefHeight="120"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button fx:id="btnToevoegen" text="Toevoegen" onAction="#handleToevoegen"/>
+            <Button fx:id="btnVerwijderen" text="Verwijderen" onAction="#handleVerwijderen"/>
+            <ComboBox fx:id="werknemerCombo" prefWidth="200"/>
+        </HBox>
+
+    </VBox>
+
+    <HBox spacing="15"
+          alignment="CENTER_RIGHT"
+          GridPane.rowIndex="9"
+          GridPane.columnIndex="1">
+
+        <GridPane.margin>
+            <Insets top="20"/>
+        </GridPane.margin>
+
+        <Button text="Verwijder machine"
+                onAction="#handleVerwijder"
+                prefWidth="150"/>
+
+        <Button text="Opslaan"
+                onAction="#handleOpslaan"
+                prefWidth="120"/>
+
+    </HBox>
+
+</GridPane>

@@ -4,6 +4,7 @@ import com.example._026javag03.exceptions.AdresException;
 import com.example._026javag03.util.gebruiker.AdresAttributes;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
@@ -12,16 +13,13 @@ import java.util.Map;
 @Embeddable
 @Getter
 @Setter
+@NoArgsConstructor
 public class Adres {
     private String straat;
     private String huisnr;
     private String postbus;
     private int postcode;
     private String stad;
-
-    public Adres(){
-
-    }
 
     private Adres(AdresBuilder builder) {
         this.straat = builder.straat;

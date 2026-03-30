@@ -8,10 +8,10 @@
         <ColumnConstraints percentWidth="35"/>
         <ColumnConstraints percentWidth="65"/>
     </columnConstraints>
-    <Label text="Voornaam" GridPane.rowIndex="0"/>
-    <TextField fx:id="voornaamField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-    <Label text="Naam" GridPane.rowIndex="1"/>
-    <TextField fx:id="naamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Label text="Naam" GridPane.rowIndex="0"/>
+    <TextField fx:id="naamField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Label text="Voornaam" GridPane.rowIndex="1"/>
+    <TextField fx:id="voornaamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
     <Label text="Personeelsnummer" GridPane.rowIndex="2"/>
     <TextField fx:id="personeelsnummerField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
     <Label text="Email" GridPane.rowIndex="3"/>
@@ -42,7 +42,7 @@
         <RadioButton fx:id="inactiefRadio" text="Inactief" toggleGroup="$statusGroup"/>
     </HBox>
     <HBox spacing="15" alignment="CENTER_RIGHT" GridPane.rowIndex="13" GridPane.columnIndex="1">
-        <Button text="Opslaan" onAction="#handleOpslaan" prefWidth="120"/>
         <Button text="Verwijder" onAction="#handleVerwijder" prefWidth="120"/>
+        <Button text="Opslaan" onAction="#handleOpslaan" prefWidth="120"/>
     </HBox>
 </GridPane>

@@ -1,29 +1,53 @@
 package com.example._026javag03.gui.observable;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
-
-
+import com.example._026javag03.domein.controller.SiteController;
+import com.example._026javag03.dto.MachineDTO;
+import javafx.beans.property.*;
 
 public class ObservableMachine {
 
-    public ObservableValue<String> statusProperty() {
-        return new SimpleStringProperty("Draait");
+    private final LongProperty id;
+    private final StringProperty status;
+    private final StringProperty productInfo;
+    private final StringProperty site;
+    private final StringProperty onderhoud;
+    private final StringProperty uptime;
+
+    private final MachineDTO dto;
+
+    public ObservableMachine(MachineDTO dto, SiteController siteController) {
+
+        this.dto = dto;
+
+        this.id = new SimpleLongProperty(dto.id());
+
+        this.status = new SimpleStringProperty(dto.status().name());
+        this.productInfo = new SimpleStringProperty(dto.productinfo());
+
+        String siteNaam = siteController.getSites()
+                .stream()
+                .filter(s -> s.id().equals(dto.siteId()))
+                .map(s -> s.naam())
+                .findFirst()
+                .orElse("Onbekend");
+
+        this.site = new SimpleStringProperty(siteNaam);
+
+        this.onderhoud = new SimpleStringProperty(
+                dto.laatsteOnderhoud() != null ? dto.laatsteOnderhoud().toString() : "-"
+        );
+
+        this.uptime = new SimpleStringProperty(dto.uptime());
     }
 
-    public ObservableValue<String> productInfoProperty() {
-        return new SimpleStringProperty("Games");
-    }
+    public LongProperty idProperty() { return id; }
+    public StringProperty statusProperty() { return status; }
+    public StringProperty productInfoProperty() { return productInfo; }
+    public StringProperty siteProperty() { return site; }
+    public StringProperty onderhoudProperty() { return onderhoud; }
+    public StringProperty uptimeProperty() { return uptime; }
 
-    public ObservableValue<String> siteProperty() {
-        return new SimpleStringProperty("Delaware Gent");
-    }
-
-    public ObservableValue<String> onderhoudProperty() {
-        return new SimpleStringProperty("8/2/2026");
-    }
-
-    public ObservableValue<String> uptimeProperty() {
-        return new SimpleStringProperty("5 uur");
+    public MachineDTO getDto() {
+        return dto;
     }
 }

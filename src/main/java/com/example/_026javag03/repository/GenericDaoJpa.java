@@ -1,26 +1,39 @@
 package com.example._026javag03.repository;
 
-
-import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 public class GenericDaoJpa<T> implements GenericDao<T> {
 
     private static final String PU_NAME = "sdp2";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PU_NAME);
-    protected static final EntityManager em = emf.createEntityManager();
+
+    private static final EntityManagerFactory emf =
+            Persistence.createEntityManagerFactory(PU_NAME);
+
+    protected EntityManager em;
+
     private final Class<T> type;
 
     public GenericDaoJpa(Class<T> type) {
         this.type = type;
+        this.em = emf.createEntityManager(); // ✔ nieuwe per DAO
     }
 
     @Override
     public void closePersistency() {
-        em.close();
-        emf.close();
+        if (em != null && em.isOpen()) {
+            em.close();
+        }
+    }
+
+    // 🔥 EXTRA: sluit factory (1x bij afsluiten app)
+    public static void closeFactory() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+        }
     }
 
     @Override
@@ -35,19 +48,22 @@ public class GenericDaoJpa<T> implements GenericDao<T> {
 
     @Override
     public void rollbackTransaction() {
-        em.getTransaction().rollback();
+        if (em.getTransaction().isActive()) {
+            em.getTransaction().rollback();
+        }
     }
 
     @Override
     public List<T> findAll() {
-        //return em.createNamedQuery(type.getName()+".findAll", type).getResultList();
-        return em.createQuery("select entity from " + type.getName() + " entity", type).getResultList();
+        return em.createQuery(
+                "select entity from " + type.getSimpleName() + " entity",
+                type
+        ).getResultList();
     }
 
     @Override
     public <U> T get(U id) {
-        T entity = em.find(type, id);
-        return entity;
+        return em.find(type, id);
     }
 
     @Override
@@ -67,8 +83,6 @@ public class GenericDaoJpa<T> implements GenericDao<T> {
 
     @Override
     public <U> boolean exists(U id) {
-        T entity = em.find(type, id);
-        return entity != null;
+        return em.find(type, id) != null;
     }
-
 }

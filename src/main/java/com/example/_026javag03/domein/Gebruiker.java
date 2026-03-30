@@ -2,14 +2,16 @@ package com.example._026javag03.domein;
 
 import com.example._026javag03.exceptions.AdresException;
 import com.example._026javag03.exceptions.ValidatieException;
-import com.example._026javag03.util.gebruiker.Rol;
 import com.example._026javag03.util.Status;
+import com.example._026javag03.util.gebruiker.Rol;
 import com.example._026javag03.util.gebruiker.ValidatieUtil;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -36,12 +38,20 @@ public class Gebruiker {
 
     @Column(nullable = false)
     private String wachtwoord;
+    private boolean eersteLogin = true;
 
     private LocalDate geboortedatum;
     @Enumerated(EnumType.STRING)
     private Rol rol;
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToMany(mappedBy = "werknemers")
+    private List<Machine> machines = new ArrayList<>();
+
+    @OneToMany(mappedBy = "gebruiker", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Notificatie> notificaties = new ArrayList<>();
+
 
     private Gebruiker(Builder builder) {
         this.naam = builder.naam;

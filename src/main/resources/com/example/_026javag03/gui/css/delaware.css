@@ -53,8 +53,10 @@
 /* ================= SCREEN BORDER ================= */
 
 .content-pane {
-    -fx-border-color: #E0E0E0;
-    -fx-border-width: 1 1 0 1;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
 }
 
 /* Form card binnen scherm */
@@ -63,6 +65,20 @@
     -fx-border-width: 2;
     -fx-border-radius: 12;
     -fx-background-radius: 12;
+}
+
+.form-title{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.form-info{
+    -fx-text-fill: #666;
+}
+
+.card{
+    -fx-background-color: white;
+    -fx-background-radius: 8;
 }
 
 /* ================= SEARCH FIELD ================= */

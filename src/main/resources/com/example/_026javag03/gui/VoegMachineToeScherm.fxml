@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane styleClass="content-pane"
+            xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+    <center>
+        <VBox alignment="TOP_CENTER" spacing="30" styleClass="card">
+            <padding>
+                <Insets top="40" right="80" bottom="40" left="80"/>
+            </padding>
+
+            <children>
+                <GridPane hgap="20" vgap="15">
+
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="150"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <!-- RIJ 1 -->
+                    <Label text="Site"/>
+                    <ComboBox fx:id="comboBoxSite" prefWidth="250" GridPane.columnIndex="1"/>
+
+                    <!-- RIJ 2 -->
+                    <Label text="Locatie in site" GridPane.rowIndex="1"/>
+                    <TextField fx:id="txtLocatie"
+                               promptText="bv. Verdiep 1, lokaal 103"
+                               GridPane.columnIndex="1"
+                               GridPane.rowIndex="1"/>
+
+                    <!-- RIJ 3 -->
+                    <Label text="Status" GridPane.rowIndex="2"/>
+                    <ComboBox fx:id="comboBoxStatus"
+                              prefWidth="250"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="2"/>
+
+                    <!-- RIJ 4 -->
+                    <Label text="Productie Status" GridPane.rowIndex="3"/>
+                    <ComboBox fx:id="comboBoxProdStatus"
+                              prefWidth="250"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="3"/>
+
+                    <!-- RIJ 5 -->
+                    <Label text="Productie Info" GridPane.rowIndex="4"/>
+                    <TextArea fx:id="txtProdInfo"
+                              prefHeight="120"
+                              GridPane.columnIndex="1"
+                              GridPane.rowIndex="4"/>
+
+                    <!-- RIJ 6 -->
+                    <Label text="Werknemers (optioneel)" GridPane.rowIndex="5"/>
+
+                    <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
+
+                        <ListView fx:id="werknemersList" prefHeight="120"/>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Button fx:id="btnToevoegen" text="Toevoegen" onAction="#handleToevoegen"/>
+                            <Button fx:id="btnVerwijderen" text="Verwijderen" onAction="#handleVerwijderen"/>
+                            <ComboBox fx:id="werknemerCombo" prefWidth="200"/>
+                        </HBox>
+
+                    </VBox>
+
+                    <!-- BUTTONS -->
+                    <HBox spacing="10" alignment="CENTER_RIGHT"
+                          GridPane.columnIndex="1"
+                          GridPane.rowIndex="6">
+
+                        <children>
+                            <Button fx:id="btnTerug"
+                                    text="← Terug"
+                                    onAction="#handleTerug"
+                                    styleClass="secondary-button"/>
+
+                            <Button fx:id="btnMaak"
+                                    text="Maak"
+                                    onAction="#handleMaak"
+                                    styleClass="primary-button"/>
+                        </children>
+                    </HBox>
+
+                </GridPane>
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

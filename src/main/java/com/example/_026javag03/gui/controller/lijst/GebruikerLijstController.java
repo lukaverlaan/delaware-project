@@ -6,6 +6,8 @@ import com.example._026javag03.gui.controller.toevoegen.VoegGebruikerToeControll
 import com.example._026javag03.gui.observable.ObservableGebruiker;
 import com.example._026javag03.gui.observable.beheer.ObservableGebruikerBeheer;
 import com.example._026javag03.gui.weergave.ViewManager;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -36,6 +39,9 @@ public class GebruikerLijstController {
     @FXML private CheckBox actiefCheckBox;
     @FXML private CheckBox inactiefCheckBox;
     @FXML private ComboBox<String> rolFilterComboBox;
+
+    @FXML
+    private Label toastLabel;
 
     @FXML private Button btnNieuweGebruiker;
 
@@ -108,6 +114,11 @@ public class GebruikerLijstController {
             });
             return row;
         });
+
+        if (viewManager.isEmailVerstuurd()) {
+            toonEmailToast();
+            viewManager.setEmailVerstuurd(false);
+        }
     }
 
     private void openNieuwGebruikerScherm() {
@@ -185,6 +196,28 @@ public class GebruikerLijstController {
 
             return tekstMatch && statusMatch && rolMatch;
         });
+    }
+
+    public void toonEmailToast() {
+
+        toastLabel.setOpacity(0);
+        toastLabel.setVisible(true);
+
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(200), toastLabel);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+
+        PauseTransition wait = new PauseTransition(Duration.seconds(3));
+
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(500), toastLabel);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+
+        fadeOut.setOnFinished(e -> toastLabel.setVisible(false));
+
+        fadeIn.play();
+        wait.setOnFinished(e -> fadeOut.play());
+        wait.play();
     }
 
     public Parent getView() {

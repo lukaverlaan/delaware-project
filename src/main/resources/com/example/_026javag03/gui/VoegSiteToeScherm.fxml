@@ -15,8 +15,7 @@
                 <Insets top="40" right="100" bottom="40" left="100"/>
             </padding>
 
-            <GridPane hgap="20" vgap="15"
-                      styleClass="card form-container">
+            <GridPane hgap="20" vgap="15">
 
                 <columnConstraints>
                     <ColumnConstraints percentWidth="50"/>

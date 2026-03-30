@@ -1,16 +1,12 @@
 package com.example._026javag03.gui.controller;
 
-import com.example._026javag03.domein.controller.GebruikerController;
-import com.example._026javag03.domein.controller.MachineController;
-import com.example._026javag03.domein.controller.SiteController;
-import com.example._026javag03.domein.controller.TeamController;
+import com.example._026javag03.domein.controller.*;
 import com.example._026javag03.dto.GebruikerDTO;
-import com.example._026javag03.gui.LoginController;
-import com.example._026javag03.gui.controller.lijst.GebruikerLijstController;
-import com.example._026javag03.gui.controller.lijst.MachineLijstController;
-import com.example._026javag03.gui.controller.lijst.SiteLijstController;
-import com.example._026javag03.gui.controller.lijst.TeamLijstController;
+import com.example._026javag03.gui.controller.lijst.*;
+import com.example._026javag03.gui.controller.login.LoginController;
+import com.example._026javag03.gui.controller.login.NieuwWachtwoordController;
 import com.example._026javag03.gui.weergave.ViewManager;
+import com.example._026javag03.repository.GenericDaoJpa;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -34,15 +30,22 @@ public class BaseController extends Application {
     private Button gebruikersBtn;
     private Button sitesBtn;
     private Button teamsBtn;
+    private Button machinesBtn;
+    private Button notificatiesBtn;
+
     private VBox sidebar;
     private StackPane centerPane;
+
     private GebruikerController gc;
     private SiteController sc;
     private TeamController tc;
+    private MachineController mc;
+    private NotificatieController nc;
+
     private ViewManager viewManager;
+
     private Label gebruikerLabel;
     private HBox gebruikerBox;
-    private Button machinesBtn;
 
     private BorderPane root;
 
@@ -56,12 +59,10 @@ public class BaseController extends Application {
         gc = new GebruikerController();
         sc = new SiteController();
         tc = new TeamController();
-        viewManager = new ViewManager(root);
-        GebruikerController gc = new GebruikerController();
-        SiteController sc = new SiteController();
-        MachineController mc = new MachineController();
-        ViewManager viewManager = new ViewManager(root);
+        mc = new MachineController();
+        nc = new NotificatieController();
 
+        viewManager = new ViewManager(root);
 
         // ================= FAVICON =================
         stage.getIcons().add(
@@ -81,7 +82,6 @@ public class BaseController extends Application {
         header.setCenter(logo);
 
         // ========= gebruiker rechtsboven ===========
-
         ImageView userIcon = new ImageView(
                 new Image(getClass().getResourceAsStream("/com/example/_026javag03/gui/images/user-icon.png"))
         );
@@ -100,8 +100,6 @@ public class BaseController extends Application {
 
         header.setRight(gebruikerBox);
 
-
-
         root.setTop(header);
 
         // ================= SIDEBAR =================
@@ -111,24 +109,30 @@ public class BaseController extends Application {
         gebruikersBtn = new Button("Gebruikers");
         sitesBtn = new Button("Sites");
         teamsBtn = new Button("Teams");
-
         machinesBtn = new Button("Machines");
+        notificatiesBtn = new Button("Notificaties");
+
+        // toevoegen aan lijst
         menuButtons.add(gebruikersBtn);
         menuButtons.add(sitesBtn);
         menuButtons.add(teamsBtn);
-
         menuButtons.add(machinesBtn);
-        gebruikersBtn.getStyleClass().add("menu-button");
-        sitesBtn.getStyleClass().add("menu-button");
-        teamsBtn.getStyleClass().add("menu-button");
+        menuButtons.add(notificatiesBtn);
 
-        machinesBtn.getStyleClass().add("menu-button");
-        gebruikersBtn.setMaxWidth(Double.MAX_VALUE);
-        sitesBtn.setMaxWidth(Double.MAX_VALUE);
-        teamsBtn.setMaxWidth(Double.MAX_VALUE);
-        machinesBtn.setMaxWidth(Double.MAX_VALUE);
+        // styling
+        for (Button btn : menuButtons) {
+            btn.getStyleClass().add("menu-button");
+            btn.setMaxWidth(Double.MAX_VALUE);
+        }
 
-        sidebar.getChildren().addAll(gebruikersBtn, sitesBtn, teamsBtn, machinesBtn);
+        sidebar.getChildren().addAll(
+                gebruikersBtn,
+                sitesBtn,
+                teamsBtn,
+                machinesBtn,
+                notificatiesBtn
+        );
+
         root.setLeft(sidebar);
 
         centerPane = new StackPane();
@@ -161,9 +165,15 @@ public class BaseController extends Application {
         machinesBtn.setOnAction(e -> {
             setActiveButton(machinesBtn);
             viewManager.showView(
-                    new MachineLijstController(mc, viewManager).getView()
+                    new MachineLijstController(mc, sc, gc, viewManager).getView()
             );
-            //TODO Machinecontroller toevoegen
+        });
+
+        notificatiesBtn.setOnAction(e -> {
+            setActiveButton(notificatiesBtn);
+            viewManager.showView(
+                    new NotificatieLijstController(nc, viewManager).getView()
+            );
         });
 
         // Startpagina
@@ -193,6 +203,7 @@ public class BaseController extends Application {
             Parent loginView = loader.load();
 
             LoginController controller = loader.getController();
+            controller.setGc(gc);
             controller.setBaseController(this);
 
             sidebar.setVisible(false);
@@ -216,16 +227,94 @@ public class BaseController extends Application {
         gebruikerBox.setVisible(true);
         gebruikerBox.setManaged(true);
 
-        gebruikerLabel.setText(
-                gebruiker.voornaam() + " " + gebruiker.naam()
-        );
+        gebruikerLabel.setText(gebruiker.voornaam());
 
-        setActiveButton(gebruikersBtn);
+        // alles verbergen
+        for (Button btn : menuButtons) {
+            btn.setVisible(false);
+            btn.setManaged(false);
+        }
 
-        Parent gebruikerView =
-                new GebruikerLijstController(gc, viewManager).getView();
+        switch (gebruiker.rol()) {
 
-        root.setCenter(gebruikerView);
+            case ADMINISTRATOR -> {
+                showAllButtons();
+                setActiveButton(gebruikersBtn);
+                root.setCenter(
+                        new GebruikerLijstController(gc, viewManager).getView()
+                );
+            }
+
+            case MANAGER -> {
+                sitesBtn.setVisible(true);
+                sitesBtn.setManaged(true);
+
+                teamsBtn.setVisible(true);
+                teamsBtn.setManaged(true);
+
+                notificatiesBtn.setVisible(true);
+                notificatiesBtn.setManaged(true);
+
+                setActiveButton(sitesBtn);
+                root.setCenter(
+                        new SiteLijstController(sc, viewManager).getView()
+                );
+            }
+
+            case VERANTWOORDELIJKE -> {
+                teamsBtn.setVisible(true);
+                teamsBtn.setManaged(true);
+
+                machinesBtn.setVisible(true);
+                machinesBtn.setManaged(true);
+
+                notificatiesBtn.setVisible(true);
+                notificatiesBtn.setManaged(true);
+
+                setActiveButton(teamsBtn);
+                root.setCenter(
+                        new TeamLijstController(tc, sc, gc, viewManager).getView()
+                );
+            }
+
+            case WERKNEMER -> {
+
+                notificatiesBtn.setVisible(true);
+                notificatiesBtn.setManaged(true);
+
+                setActiveButton(notificatiesBtn);
+                root.setCenter(
+                        new NotificatieLijstController(nc, viewManager).getView()
+                );
+            }
+        }
+    }
+
+    private void showAllButtons() {
+        for (Button btn : menuButtons) {
+            btn.setVisible(true);
+            btn.setManaged(true);
+        }
+    }
+
+    public void toonNieuwWachtwoordScherm(GebruikerDTO gebruiker) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/com/example/_026javag03/gui/NieuwWachtwoordScherm.fxml"));
+
+            Parent view = loader.load();
+
+            NieuwWachtwoordController controller = loader.getController();
+            controller.init(gebruiker, this);
+
+            root.setCenter(view);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void logout() {
@@ -241,11 +330,6 @@ public class BaseController extends Application {
         toonLoginScherm();
     }
 
-    private void showViewInCenter(Parent view) {
-        centerPane.getChildren().clear();
-        centerPane.getChildren().add(view);
-    }
-
     private void setActiveButton(Button active) {
 
         for (Button btn : menuButtons) {
@@ -253,5 +337,17 @@ public class BaseController extends Application {
         }
 
         active.getStyleClass().add("menu-button-active");
+    }
+
+    @Override
+    public void stop() {
+
+        tc.close();
+        gc.close();
+        sc.close();
+        mc.close();
+        nc.close();
+
+        GenericDaoJpa.closeFactory();
     }
 }

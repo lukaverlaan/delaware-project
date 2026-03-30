@@ -19,8 +19,10 @@ public record GebruikerDTO(
         int postcode,
         LocalDate geboorteDatum,
         Rol rol,
-        Status status
+        Status status,
+        boolean eersteLogin
 ) {
+
     @Override
     public String toString() {
         return personeelsnummer + " - " + voornaam + " " + naam;
